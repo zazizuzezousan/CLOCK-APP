@@ -10,6 +10,16 @@ body{
     font-size: min(15vw,100px);
     width: 80%;
 }
+#control{
+    position: absolute;
+    top: 60vh;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 350px;
+    height: 70px;
+    text-align: center;
+    background-color: lightblue;
+}
 #navigation{
     position: absolute;
     top: 80vh;
@@ -26,4 +36,7 @@ body{
     height: 50px;
     margin: 10px 5px;
     border-radius: 25px;
+}
+.settimer{
+    width: 50px;
 }
