@@ -4,6 +4,7 @@ const $time = document.getElementById("time");
 const $timer = document.getElementById("timer");
 const $stopwatch = document.getElementById("stopwatch");
 const $setting = document.getElementById("setting");
+const $timerend = document.getElementById("timerend");
 let displayhour;
 let displayminute;
 let displaysecond;
@@ -37,6 +38,7 @@ function Timer(){
     const $reset = document.getElementById("reset");
     let $startstopStatus = 0;
     $startstop.addEventListener("click",function(){
+        $timerend.pause();
         if($startstopStatus == 0){
             if($sethours.value && $setminutes.value && $setseconds.value){
                 $startstopStatus = 1;
@@ -59,6 +61,9 @@ function Timer(){
                                 hour--;
                             }else{
                                 clearInterval(time);
+                                $timerend.currentTime = 0;
+                                $timerend.loop = true;
+                                $timerend.play();
                                 $startstopStatus = 0;
                                 $startstop.innerText = "開始";
                             }
@@ -90,6 +95,9 @@ function Timer(){
                                     hour--;
                                 }else{
                                     clearInterval(time);
+                                    $timerend.currentTime = 0;
+                                    $timerend.loop = true;
+                                    $timerend.play();
                                     $startstopStatus = 0;
                                     $startstop.innerText = "開始";
                                 }
@@ -103,6 +111,7 @@ function Timer(){
     });
     $reset.addEventListener("click",function(){
         clearInterval(time);
+        $timerend.pause();
         hour = 0;
         minute = 0;
         second = 0;
