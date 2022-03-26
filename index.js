@@ -8,9 +8,11 @@ const $timerend = document.getElementById("timerend");
 let displayhour;
 let displayminute;
 let displaysecond;
+let displaymillisecond;
 let hour;
 let minute;
 let second;
+let millisecond;
 let time;
 
 //現在時刻表示
@@ -122,6 +124,80 @@ function Timer(){
     });
 }
 
+//ストップウォッチ
+function Stopwatch(){
+    $control.innerHTML = "<button id=startstop>開始</button><button id=reset>リセット</button>"
+    const $startstop = document.getElementById("startstop");
+    const $reset = document.getElementById("reset");
+    let $startstopStatus = 0;
+    $startstop.addEventListener("click",function(){
+        if($startstopStatus == 0){
+            hour = 0;
+            minute = 0;
+            second = 0;
+            millisecond = 0;
+            $startstopStatus = 1;
+        }
+        if($startstopStatus == 1){
+            $startstopStatus = 2;
+            $startstop.innerText = "一時停止";
+            time = setInterval(function(){
+                millisecond++;
+                if(millisecond == 100){
+                    second++;
+                    millisecond = 0;
+                }
+                if(second == 60){
+                    minute++;
+                    second = 0;
+                }
+                if(minute == 60){
+                    hour++;
+                    minute = 0; 
+                }
+                if(hour == 24){
+                    clearInterval(time);
+                }
+                if(hour == 0){
+                    if(minute < 10){
+                        displayminute = "0" + minute;
+                    }else{
+                        displayminute = minute;
+                    }
+                    if(second < 10){
+                        displaysecond = "0" + second;
+                    }else{
+                        displaysecond = second;
+                    }
+                    if(millisecond < 10){
+                        displaymillisecond = "0" + millisecond;
+                    }else{
+                        displaymillisecond = millisecond;
+                    }
+                    $display.innerText = displayminute + ":" + displaysecond + ":" + displaymillisecond;
+                }else{
+                    setDisplay();
+                }
+            },10);
+        }else{
+            clearInterval(time);
+            $startstopStatus = 1;
+            $startstop.innerText = "再開";
+        }
+    });
+    $reset.addEventListener("click",function(){
+        if($startstopStatus == 1){
+            hour = 0;
+            minute = 0;
+            second = 0;
+            millisecond = 0;
+            $startstopStatus = 0;
+            setDisplay();
+            $startstop.innerText = "開始";
+        }
+    })
+}
+
 //画面表示
 function setDisplay(){
     if(hour < 10){
@@ -150,6 +226,14 @@ $time.addEventListener("click",function(){
 
 $timer.addEventListener("click",function(){
     clearInterval(time);
+    $control.innerHTML = "";
     $display.innerText = "00:00:00";
     Timer();
+});
+
+$stopwatch.addEventListener("click",function(){
+    clearInterval(time);
+    $control.innerHTML = "";
+    $display.innerText = "00:00:00";
+    Stopwatch();
 });
