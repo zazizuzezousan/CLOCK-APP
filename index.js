@@ -30,8 +30,8 @@ function Timer(){
         "<input type=number placeholder=時間 min=0 id=sethours class=settimer>"+
         "<input type=number placeholder=分 min=0 id=setminutes class=settimer>"+
         "<input type=number placeholder=秒 min=0 id=setseconds class=settimer>"+
-        "<button id=startstop>開始</button>"+
-        "<button id=reset>リセット</button>";
+        "<button id=startstop class=timercontrol>開始</button>"+
+        "<button id=reset class=timercontrol>リセット</button>";
     $control.innerHTML = TimerHTML;
     const $sethours = document.getElementById("sethours");
     const $setminutes = document.getElementById("setminutes");
@@ -121,12 +121,14 @@ function Timer(){
         $sethours.value = "";
         $setminutes.value = "";
         $setseconds.value = "";
+        $startstopStatus = 0;
+        $startstop.innerText = "開始";
     });
 }
 
 //ストップウォッチ
 function Stopwatch(){
-    $control.innerHTML = "<button id=startstop>開始</button><button id=reset>リセット</button>"
+    $control.innerHTML = "<button id=startstop class=timercontrol>開始</button><button id=reset class=timercontrol>リセット</button>"
     const $startstop = document.getElementById("startstop");
     const $reset = document.getElementById("reset");
     let $startstopStatus = 0;
